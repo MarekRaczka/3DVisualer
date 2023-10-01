@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Visualer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section class="main">
+        <canvas id="canvas" width="800" height="500"></canvas>
+        <input placeholder="Podaj funkcje" id="functionInput"></input>
+        <button onclick="Draw()">Wyślij</button>
+        <button onclick="Clean()">wyczyść</button>
+    </section>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+        var scaleX = 20;
+        var scaleY = 20;
+
+        function Clean() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        function Draw(){
+            var functionInput = document.getElementById('functionInput').value;
+        }
+
+        function drawAxes() {
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        }
+        
+        // DrawIntervalofAxes()
+        // ScrollCanvas()
+        // Pobierz element canvas
+        // var canvas = document.getElementById('canvas');
+        // var ctx = canvas.getContext('2d');
+
+        // Ustaw punkt początkowy w środku canvas
+        // var centerX = canvas.width / 2;
+        // var centerY = canvas.height / 2;
+
+        // Narysuj osie X i Y
+        // ctx.beginPath();
+        // ctx.moveTo(0, centerY);
+        // ctx.lineTo(canvas.width, centerY);
+        // ctx.moveTo(centerX, 0);
+        // ctx.lineTo(centerX, canvas.height);
+        // ctx.strokeStyle = "black";
+        // ctx.stroke();
+
+        // Narysuj podziałki na osiach
+        // for (var i = 0; i <= canvas.width; i += 20) {
+        //     ctx.beginPath();
+        //     ctx.moveTo(i, centerY - 5);
+        //     ctx.lineTo(i, centerY + 5);
+        //     ctx.strokeStyle = "black";
+        //     ctx.stroke();
+        // }
+
+        // for (var i = 0; i <= canvas.height; i += 20) {
+        //     ctx.beginPath();
+        //     ctx.moveTo(centerX - 5, i);
+        //     ctx.lineTo(centerX + 5, i);
+        //     ctx.strokeStyle = "black";
+        //     ctx.stroke();
+        // }
+    </script>
+</body>
+</html>

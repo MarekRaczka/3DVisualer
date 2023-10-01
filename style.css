@@ -1,0 +1,22 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: 0px;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+.block{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+#canvas {
+    border: 1px solid black;
+}
