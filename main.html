@@ -7,30 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <section class="main">
-        <canvas id="canvas" width="800" height="500"></canvas>
-        <input placeholder="Podaj funkcje" id="functionInput"></input>
-        <button onclick="Draw()">Wyślij</button>
-        <button onclick="Clean()">wyczyść</button>
-    </section>
+    <canvas id="canvas"></canvas>
+    <form onsubmit="return false">
+        <label> Podaj wartość funkcji: </label>
+        <input type="text" placeholder="format: x**2+4x+4" id="myFunction"><br>
+        <button onclick="drawMyFunction()">DRAW</button>
+    </form>
+    <div class="siemka">
+        <p>Tutaj sprawdzam funckje i własności kodu, fucknji, programu, itp: </p>
+    </div>
 
     <script>
+
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
-        var scaleX = 20;
-        var scaleY = 20;
+        let rangex = canvas.width/40;
+        let rangey = canvas.height/20
+        let number = -20;
 
-        function Clean() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-        function Draw(){
-            var functionInput = document.getElementById('functionInput').value;
-        }
-
-        function drawAxes() {
+        function draw(ctx){
             ctx.beginPath();
             ctx.moveTo(0, centerY);
             ctx.lineTo(canvas.width, centerY);
@@ -39,42 +38,59 @@
             ctx.strokeStyle = "black";
             ctx.stroke();
         }
+
         
-        // DrawIntervalofAxes()
-        // ScrollCanvas()
-        // Pobierz element canvas
-        // var canvas = document.getElementById('canvas');
-        // var ctx = canvas.getContext('2d');
+        for(i=0; i<=canvas.width; i+=rangex) {
+                ctx.beginPath();
+                ctx.fillText(number, i, centerY - 9)
+                number++
+                ctx.textAlign = "center"
+                ctx.textBaseline = "middle"
+                ctx.font = "10px Arial"
+                ctx.moveTo(i, centerY - 5);
+                ctx.lineTo(i, centerY + 5);
+                ctx.strokeStyle = "black";
+                ctx.stroke();
+        }
 
-        // Ustaw punkt początkowy w środku canvas
-        // var centerX = canvas.width / 2;
-        // var centerY = canvas.height / 2;
+        number = 10
 
-        // Narysuj osie X i Y
-        // ctx.beginPath();
-        // ctx.moveTo(0, centerY);
-        // ctx.lineTo(canvas.width, centerY);
-        // ctx.moveTo(centerX, 0);
-        // ctx.lineTo(centerX, canvas.height);
-        // ctx.strokeStyle = "black";
-        // ctx.stroke();
+        for(i=0; i<=canvas.height; i+=rangey) {
+                ctx.beginPath();
+                ctx.fillText(number, centerX - 9, i )
+                number--
+                ctx.textAlign = "center"
+                ctx.textBaseline = "middle"
+                ctx.font = "10px Arial"
+                ctx.moveTo(centerX - 5, i);
+                ctx.lineTo(centerX + 5, i);
+                ctx.strokeStyle = "black";
+                ctx.stroke();
+        }
+           
 
-        // Narysuj podziałki na osiach
-        // for (var i = 0; i <= canvas.width; i += 20) {
-        //     ctx.beginPath();
-        //     ctx.moveTo(i, centerY - 5);
-        //     ctx.lineTo(i, centerY + 5);
-        //     ctx.strokeStyle = "black";
-        //     ctx.stroke();
-        // }
+        draw(ctx);
 
-        // for (var i = 0; i <= canvas.height; i += 20) {
-        //     ctx.beginPath();
-        //     ctx.moveTo(centerX - 5, i);
-        //     ctx.lineTo(centerX + 5, i);
-        //     ctx.strokeStyle = "black";
-        //     ctx.stroke();
-        // }
+        ctx.translate(centerX, centerY);
+        ctx.scale(100,100);
+        number=-20
+        
+        
+        function drawMyFunction(){
+            const myFunction = document.querySelector("#myFunction").value
+            const check = document.querySelector(".siemka")
+            for(x=number; x<=(number*(-1)); x++){
+                functionWithX = myFunction.replaceAll('x', x)
+                array = functionWithX.split('+')
+                array.forEach(element => {
+                    check.innerHTML += "Wartość funkcji: "+element+'<br>'
+                });
+                check.innerHTML += "Wartość funkcji: "+functionWithX+'<br>'
+                //yParameter = eval(functionWithX);
+                //check.innerHTML += "Wartość X: "+x+"Wartość Y: "+yParameter
+            }
+        }
+
     </script>
 </body>
 </html>
