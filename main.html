@@ -11,7 +11,7 @@
     <form onsubmit="return false">
         <label> Podaj wartość funkcji: </label>
         <input type="text" placeholder="format: x**2+4x+4" id="myFunction"><br>
-        <button onclick="drawMyFunction()">DRAW</button>
+        <button onclick="destroyUserFunction()">DRAW</button>
     </form>
     <div class="siemka">
         <p>Tutaj sprawdzam funckje i własności kodu, fucknji, programu, itp: </p>
@@ -75,21 +75,61 @@
         ctx.scale(100,100);
         number=-20
         
-        
-        function drawMyFunction(){
-            const myFunction = document.querySelector("#myFunction").value
-            const check = document.querySelector(".siemka")
-            for(x=number; x<=(number*(-1)); x++){
-                functionWithX = myFunction.replaceAll('x', x)
-                array = functionWithX.split('+')
-                array.forEach(element => {
-                    check.innerHTML += "Wartość funkcji: "+element+'<br>'
-                });
-                check.innerHTML += "Wartość funkcji: "+functionWithX+'<br>'
-                //yParameter = eval(functionWithX);
-                //check.innerHTML += "Wartość X: "+x+"Wartość Y: "+yParameter
-            }
+
+        truthTableRPN = {
+        '(' : 0,
+        '+' : 1,
+        '-' : 1,
+        ')' : 1,
+        '*' : 2,
+        '/' : 2,
+        '%' : 2,
+        '^':3
         }
+        arrayFunction =[]
+        stos =[]
+        const myFunction = document.querySelector("#myFunction").value
+
+        // function destroyUserFunction(){
+        //     const myFunction = document.querySelector("#myFunction").value
+        //     const check = document.querySelector(".siemka")
+        //     functionWithX = myFunction.replaceAll('x', '(x)')
+        //     filteredFunction = functionWithX.split(/\s/g)
+        //     check.innerHTML += "filtrowane liczby: "+filteredFunction+'<br>'
+        //     filteredFunction[2] = filteredFunction[2].replaceAll('x', '2')
+        //     check.innerHTML += "filtrowane liczby: "+ Math.eval(filteredFunction[2])+'<br>'
+        // }
+        
+        // function drawMyFunction(){
+        //     const myFunction = document.querySelector("#myFunction").value
+        //     const check = document.querySelector(".siemka")
+    
+        //     functionWithX = myFunction
+        //     functionWithX = functionWithX.replaceAll('x', '(x)')
+        //     arrayNumbers = functionWithX.split(/[+\-*\/]/g)
+        //     arrayChars = functionWithX.split(/[^+\-*\/]/g)
+        //     filteredArrayNumbers = arrayNumbers.filter(function cleanWhiteSpaces(array){
+        //         return array != ''
+        //     })
+        //     filteredArrayChars = arrayChars.filter(function cleanWhiteSpaces(array){
+        //         return array != ''
+        //     })
+        //     check.innerHTML += "filtrowane liczby: "+filteredArrayNumbers+'<br>'
+        //     check.innerHTML += "filtrowane liczby: "+filteredArrayChars+'<br>'
+        //     //yParameter = eval(functionWithX);
+        //     //check.innerHTML += "Wartość X: "+x+"Wartość Y: "+yParameter
+
+        //     lastFunction = []
+        //     lastFunction.push(filteredArrayNumbers[0]+filteredArrayChars[0]+filteredArrayNumbers[1])
+        //     lastFunction.push(filteredArrayNumbers[2]+filteredArrayChars[2]+filteredArrayNumbers[3])
+        //     lastFunction.push(filteredArrayNumbers[2]+filteredArrayChars[2]+filteredArrayNumbers[3])
+        //     check.innerHTML += "Moja Funkcja: "+lastFunction+'<br>'
+        // } 
+
+        // function parse(str) {
+        //     return Function(`'use strict'; return (${str})`)()
+        // }
+
 
     </script>
 </body>
