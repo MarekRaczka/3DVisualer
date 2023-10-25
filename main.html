@@ -11,7 +11,7 @@
     <form onsubmit="return false">
         <label> Podaj wartość funkcji: </label>
         <input type="text" placeholder="format: x**2+4x+4" id="myFunction"><br>
-        <button onclick="destroyUserFunction()">DRAW</button>
+        <button onclick="createRPNUserFunction()">DRAW</button>
     </form>
     <div class="siemka">
         <p>Tutaj sprawdzam funckje i własności kodu, fucknji, programu, itp: </p>
@@ -84,11 +84,46 @@
         '*' : 2,
         '/' : 2,
         '%' : 2,
-        '^':3
+        '^': 3
         }
         arrayFunction =[]
         stos =[]
-        const myFunction = document.querySelector("#myFunction").value
+        function getValue(znak){
+            let returnvalue = truthTableRPN[znak] ?? -1
+            return returnvalue
+        }
+        function createRPNUserFunction(){
+            const myFunction = document.querySelector("#myFunction").value
+            const check = document.querySelector(".siemka")
+            for(i=0; i<= myFunction.length; i++){
+            char = myFunction.substr(i,z=1);
+            if (/[a-z0-9]/.test(char)){
+                arrayFunction.push(char)
+            }
+            // else if(char === '('){
+            //     stos.push(char)
+            // }
+            else if(char === ')'){
+                while(stos[stos.length-1] !== '('){
+                    arrayFunction.push(stos[stos.length-1])
+                    stos.pop()
+                }
+                stos.pop()
+            }
+            else if(char == '+' || char == '-' || char == '/' || char == '*' || char == '^' || char == '%'){
+                while (getValue(char) <= getValue(stos[stos.length-1])) {
+                arrayFunction.push(stos[stos.length-1])
+                stos.pop()}
+                stos.push(char)
+            }
+            else stos.push(char)
+            }
+            arrayFunction.push(stos)
+            stos=''
+            check.innerHTML += "pokaż stos: "+stos+'<br>'
+            check.innerHTML += "pokaż wyjście: "+arrayFunction+'<br>'
+        }
+        
 
         // function destroyUserFunction(){
         //     const myFunction = document.querySelector("#myFunction").value
