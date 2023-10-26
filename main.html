@@ -92,11 +92,24 @@
             let returnvalue = truthTableRPN[znak] ?? -1
             return returnvalue
         }
+
         function createRPNUserFunction(){
             const myFunction = document.querySelector("#myFunction").value
             const check = document.querySelector(".siemka")
             for(i=0; i<= myFunction.length; i++){
-            char = myFunction.substr(i,z=1);
+
+            if(isNaN(myFunction.charAt(i))) char = myFunction.charAt(i)
+            else{
+                temp = i  
+                char = myFunction.charAt(i) 
+                while(!isNaN(myFunction.charAt(i)) && i<myFunction.length){
+                    if(!isNaN(myFunction.charAt(temp++))){ 
+                        char += myFunction.charAt(temp) 
+                        i = temp 
+                    }
+                }
+            }
+            console.log("Tutaj sprawdzam char: "+char)
             if (/[a-z0-9]/.test(char)){
                 arrayFunction.push(char)
             }
@@ -124,7 +137,6 @@
             check.innerHTML += "pokaż wyjście: "+arrayFunction+'<br>'
         }
         
-
         // function destroyUserFunction(){
         //     const myFunction = document.querySelector("#myFunction").value
         //     const check = document.querySelector(".siemka")
