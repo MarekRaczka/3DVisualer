@@ -11,7 +11,11 @@
     <form onsubmit="return false">
         <label> Podaj wartość funkcji: </label>
         <input type="text" placeholder="format: x**2+4x+4" id="myFunction"><br>
-        <button onclick="createRPNUserFunction()">DRAW</button>
+        <label>Wybierz kolor Funkcji:</label><br>
+        <input type="color" id="color"><br>
+        <button onclick="createRPNUserFunction()">Narysuj</button>
+        <button onclick="clearReact()">Zmarz</button>
+
     </form>
     <div class="siemka">
         <p>Tutaj sprawdzam funckje i własności kodu, fucknji, programu, itp: </p>
@@ -29,7 +33,7 @@
         let rangey = canvas.height/20
         let number = -20;
 
-        function draw(ctx){
+        function draw(){
             ctx.beginPath();
             ctx.moveTo(0, centerY);
             ctx.lineTo(canvas.width, centerY);
@@ -37,8 +41,7 @@
             ctx.lineTo(centerX, canvas.height);
             ctx.strokeStyle = "black";
             ctx.stroke();
-        }
-
+            ctx.closePath()
         
         for(i=0; i<=canvas.width; i+=rangex) {
                 ctx.beginPath();
@@ -51,6 +54,11 @@
                 ctx.lineTo(i, centerY + 5);
                 ctx.strokeStyle = "black";
                 ctx.stroke();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.strokeStyle = "gray";
+                ctx.stroke();
+                ctx.closePath()
         }
 
         number = 10
@@ -66,14 +74,18 @@
                 ctx.lineTo(centerX + 5, i);
                 ctx.strokeStyle = "black";
                 ctx.stroke();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.strokeStyle = "gray";
+                ctx.stroke();
+                ctx.closePath()
         }
+    }
            
 
-        draw(ctx);
+        draw();
 
         ctx.translate(centerX, centerY);
-        ctx.scale(100,100);
-        
 
         truthTableRPN = {
         '(' : 0,
@@ -87,7 +99,6 @@
         }
         arrayFunction =[]
         stos =[]
-        outline =[]
         function getValue(znak){
             let returnvalue = truthTableRPN[znak] ?? -1
             return returnvalue
@@ -129,16 +140,13 @@
             for (var i = 0; i < arrayFunction.length; i++) {
                 if(arrayFunction[i] == '^') arrayFunction[i] = arrayFunction[i].replace('^', "**");
             }
-            counter = 0
-            for (let number = -20; number <= 20; number++) {
-                array = changeValuesOfX(number, arrayFunction)
-                outline.push(countYParameterFunction(array))
-                counter++
-            }
-            drawFunctionGraph(-2, outline[19], counter)
+            
+            drawFunctionGraph(arrayFunction)
+            
             check.innerHTML += "pokaż stos: "+stos+'<br>'
             check.innerHTML += "pokaż wyjście: "+arrayFunction+'<br>'
-            check.innerHTML += "pokaż wynik: "+outline+'<br>'
+            arrayFunction =[]
+            stos =[]
         }
 
         function changeValuesOfX(number, func){
@@ -190,13 +198,50 @@
             }
         }
 
-        function drawFunctionGraph(xParameter ,yParameter, counter){
-            var c = document.getElementById("myCanvas");
-            var ctx = c.getContext("2d");
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.quadraticCurveTo(xParameter, yParameter, -20, 20);
-            ctx.stroke();
+        function drawFunctionGraph(arrayFunction){
+            counter = 0
+            let color = document.querySelector('#color').value;
+            for (let number = -20; number <= 20; number+=0.1) {
+                array = changeValuesOfX(number, arrayFunction)
+                y = (countYParameterFunction(array))
+                let rangex = canvas.width/40;
+                let rangey = canvas.height/20
+                x=number*rangex
+                y*=rangey
+                console.log(x, y);
+                if(counter % 2 == 0){
+                    ctx.lineTo(x, y)
+                    ctx.strokeStyle = color
+                    ctx.stroke()
+                    ctx.moveTo(x, y); 
+                    i++
+                    counter++
+                }
+                else if(counter == 0){
+                    ctx.beginPath()
+                    ctx.moveTo(x, y); 
+                    i++
+                    counter++
+                }
+                
+                else{
+                    ctx.lineTo(x, y) 
+                    ctx.strokeStyle = color
+                    ctx.stroke()
+                    ctx.moveTo(x, y)
+                    i++
+                    counter++
+                } 
+                ctx.closePath()
+            }
+        }
+
+        function clearReact(){
+            ctx.translate(-centerX, -centerY);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            number = -20;
+            draw()
+            ctx.translate(centerX, centerY);
         }
 
     </script>
