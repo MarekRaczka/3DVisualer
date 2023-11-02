@@ -206,7 +206,7 @@
             y *= -rangey
             console.log(x, y);
 
-            if(counter == 0 && y>=maxMinusY && y<=maxPlusY){
+            if(counter == 0 && y>=maxMinusY && y<=maxPlusY && x>maxMinusX && x<maxPlusX){
                 ctx.beginPath()
                 ctx.strokeStyle = color
                 ctx.moveTo(tempX, tempY);
