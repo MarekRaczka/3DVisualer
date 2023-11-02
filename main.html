@@ -111,10 +111,16 @@
             charArray = myFunction.match(/([\w\d]+)|[-\+\*\/\^\(\)]/g)
 
             for(i=0; i< charArray.length; i++){
+                console.log(stos)
+                console.log(arrayFunction)
 
                 char = charArray[i]
                 if (/[a-z0-9]/.test(char)){
                     arrayFunction.push(char)
+                }
+                else if(i == 0 && char == '-'){
+                    stos.push(char)
+                    arrayFunction.push(0)
                 }
                 else if(stos[stos.length-1] == '(' && char == '-'){
                     stos.push(char)
@@ -135,6 +141,7 @@
                 }
                 else stos.push(char)
             }
+
             arrayFunction.push(stos[0])
             stos=''
             for (var i = 0; i < arrayFunction.length; i++) {
@@ -206,32 +213,30 @@
                 y = (countYParameterFunction(array))
                 let rangex = canvas.width/40;
                 let rangey = canvas.height/20
-                x=number*rangex
-                y*=rangey
+                maxPlusX = centerX
+                maxMinusY = -centerY
+                maxMinusX = -centerX
+                maxPlusY = centerY
+                x = number* rangex
+                y *= -rangey
                 console.log(x, y);
-                if(counter % 2 == 0){
-                    ctx.lineTo(x, y)
-                    ctx.strokeStyle = color
-                    ctx.stroke()
-                    ctx.moveTo(x, y); 
-                    i++
-                    counter++
-                }
-                else if(counter == 0){
+
+                if(counter == 0 && y>maxMinusY && y<maxPlusY){
                     ctx.beginPath()
                     ctx.moveTo(x, y); 
                     i++
                     counter++
                 }
-                
-                else{
-                    ctx.lineTo(x, y) 
+
+                else {
                     ctx.strokeStyle = color
+                    ctx.lineTo(x, y)
                     ctx.stroke()
-                    ctx.moveTo(x, y)
+                    ctx.moveTo(x, y); 
                     i++
                     counter++
-                } 
+                }
+
                 ctx.closePath()
             }
         }
