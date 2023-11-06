@@ -8,15 +8,18 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <form onsubmit="return false">
-        <label> Podaj wartość funkcji: </label>
-        <input type="text" placeholder="format: x**2+4x+4" id="myFunction"><br>
-        <label>Wybierz kolor Funkcji:</label><br>
-        <input type="color" id="color"><br>
-        <button onclick="createNewGraphFunction()">Narysuj</button>
-        <button onclick="clearReact()">Zmarz</button>
-
-    </form>
+    <div class="container">
+        <form class="menu" onsubmit="return false">
+            <label> Podaj wartość funkcji: </label>
+            <input type="text" placeholder="Przykładowy format: x^2+4*x+4" id="myFunction">
+            <label>Wybierz kolor Funkcji:</label>
+            <input type="color" id="color"><br>
+            <div class="buttons">
+                <button class="bttn" onclick="createNewGraphFunction()">Narysuj</button>
+                <button class="bttn" onclick="clearReact()">Zmarz</button>
+            </div>
+        </form>
+    </div>
     <!-- <div class="siemka">
         <p>Tutaj sprawdzam funckje i własności kodu, fucknji, programu, itp: </p>
     </div> -->

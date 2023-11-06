@@ -1,7 +1,7 @@
 
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
+    canvas.width = window.innerWidth-30;
     canvas.height = window.innerHeight;
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
