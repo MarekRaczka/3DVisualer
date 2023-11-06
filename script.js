@@ -69,6 +69,7 @@
 
     function drawNet(){
         for(i=0; i<=canvas.width; i+=rangex){
+            ctx.beginPath()
             ctx.moveTo(i, 0);
             ctx.strokeStyle = "rgba(180, 180, 180, 0.2)";
             ctx.lineTo(i, canvas.height);
@@ -76,6 +77,7 @@
             ctx.closePath()
         }
         for(i=0; i<=canvas.height; i+=rangey) {
+            ctx.beginPath()
             ctx.moveTo(0, i);
             ctx.strokeStyle = "rgba(180, 180, 180, 0.2)";
             ctx.lineTo(canvas.width, i);
